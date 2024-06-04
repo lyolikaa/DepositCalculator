@@ -17,13 +17,15 @@ namespace DepositCalculator
         {
             try
             {
-                double principal = Convert.ToDouble(txtPrincipal.Text);
-                double interestRate = Convert.ToDouble(txtInterestRate.Text);
-                double timePeriod = Convert.ToDouble(txtTimePeriod.Text);
+                var validation = _vm.ValidateInput(); 
+                if (!string.IsNullOrEmpty(validation))
+                {
+                    lblResult.Content = $"Invalid input: {validation}";
+                    return;
+                };
 
-                double amount = principal * (1 + (interestRate / 100) * timePeriod);
 
-                lblResult.Content = $"Total Amount: {amount:C}";
+                lblResult.Content = $"Total Amount: {_vm.Calculate():C}";
 
             }
             catch (FormatException)
