@@ -25,7 +25,7 @@ namespace DepositCalculator
                 };
 
 
-                lblResult.Content = $"Total Amount: {_vm.Calculate():C}";
+                lblResult.Content = $"Total Amount: {_vm.Calculate()} {_vm.Currency.Sign}";
 
             }
             catch (FormatException)

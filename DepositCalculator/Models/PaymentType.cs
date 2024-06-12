@@ -1,8 +1,8 @@
-namespace DepositCalculator.ViewModels;
+namespace DepositCalculator.Models;
 
 public class PaymentType
 {   
-    public long Code { get; set; }
+    public PaymentCode Code { get; set; }
     public string Type { get; set; }
 }
 

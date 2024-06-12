@@ -1,4 +1,4 @@
-namespace DepositCalculator.ViewModels;
+namespace DepositCalculator.Models;
 
 public class CurencyType
 {   public long Code { get; set; }

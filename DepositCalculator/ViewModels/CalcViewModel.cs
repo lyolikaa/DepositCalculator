@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using DepositCalculator.Models;
 
 namespace DepositCalculator.ViewModels;
 
@@ -11,8 +12,8 @@ public class CalcViewModel : INotifyPropertyChanged
     public ObservableCollection<PaymentType> PaymentTypes { get; set; } =
         new()
         {
-            new() { Code = 0, Type = "Capitalization" },
-            new() { Code = 1, Type = "Monthly payout" },
+            new() { Code = PaymentCode.Capitalization, Type = "Capitalization" },
+            new() { Code = PaymentCode.Monthly, Type = "Monthly payout" },
         };
     public ObservableCollection<CurencyType> CurrencyTypes { get; set; } =
     [
@@ -33,8 +34,8 @@ public class CalcViewModel : INotifyPropertyChanged
     [Range(1, int.MaxValue, ErrorMessage = "Only positive number allowed")]
     public int TimePeriod { get; set; }
 
-    public int PaymentType { get; set; }
-    public int Currency { get; set; }
+    public PaymentType PaymentType { get; set; }
+    public CurencyType Currency { get; set; }
 
     public string ValidateInput()
     {
@@ -46,7 +47,14 @@ public class CalcViewModel : INotifyPropertyChanged
 
     public double Calculate()
     {
-            return Principal * (1 + InterestRate / 100 * TimePeriod);
-
+        BaseCalculator calc = PaymentType.Code switch
+        {
+            PaymentCode.Capitalization =>
+                new CapitalCalc(TimePeriod),
+            PaymentCode.Monthly =>
+                new MonthlyCalc(TimePeriod),
+        };
+            
+        return calc.Calculate(Principal, InterestRate);
     }
 }

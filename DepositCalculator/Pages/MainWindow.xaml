@@ -28,7 +28,7 @@
         <Label Grid.Row="3" Content="Interest payment method:"/>
         <ComboBox Grid.Row="3" Name="cbPaymentType"
                   ItemsSource="{Binding  PaymentTypes}"
-                  SelectedItem="{Binding PaymentType}"
+                  SelectedItem="{Binding PaymentType, Mode=TwoWay}"
                   DisplayMemberPath="Type"
                   SelectedValuePath="Code"
                   Margin="100,0,0,0" Width="150"
@@ -42,7 +42,7 @@
         <Label Grid.Row="4" Content="Currency:" Margin="150,0,0,0"/>
         <ComboBox Grid.Row="4" Name="cbCurrency"
                   ItemsSource="{Binding  CurrencyTypes}"
-                  SelectedItem="{Binding Currency}"
+                  SelectedItem="{Binding Currency, Mode=TwoWay}"
                   DisplayMemberPath="Type"
                   SelectedValuePath="Code"
                   Margin="150,0,0,0" Width="50"
